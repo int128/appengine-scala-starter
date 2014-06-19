@@ -8,4 +8,3 @@ libraryDependencies ++= Seq(
   "javax.servlet" % "servlet-api" % "2.5" % "provided",
   "net.databinder" %% "unfiltered-filter" % "0.8.0"
 )
-
