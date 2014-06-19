@@ -1,0 +1,16 @@
+project/project
+project/target
+target
+
+/src/main/webapp/WEB-INF/lib
+/src/main/webapp/WEB-INF/classes
+/src/main/webapp/WEB-INF/appengine-generated
+
+/.idea
+/*.iml
+/out
+/.idea_modules
+
+/.classpath
+/.project
+/.settings

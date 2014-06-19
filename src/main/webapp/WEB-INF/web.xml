@@ -1,0 +1,44 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <filter>
+        <filter-name>App</filter-name>
+        <filter-class>App</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>App</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>scalate-templates</web-resource-name>
+            <url-pattern>*.ssp</url-pattern>
+            <url-pattern>*.scaml</url-pattern>
+            <url-pattern>*.jade</url-pattern>
+            <url-pattern>*.mustache</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- Uncomment the following security constraint if you want to secure your incoming email endpoint -->
+    <!-- Only allow the SDK and administrators to have access to the incoming email endpoint -->
+    <!--
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/_ah/mail/*</url-pattern>
+            <url-pattern>/_ah/xmpp/message/chat/</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    -->
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
