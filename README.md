@@ -46,6 +46,7 @@ This project contains following:
   * Scala 2.10
   * Unfiltered filter
   * Scalate
+    * Scalate cache support
+    * Scalate generating support with xsbt-scalate-generator
   * App Engine support with sbt-appengine
-  * Scalate generating support with xsbt-scalate-generator
 
