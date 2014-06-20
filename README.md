@@ -49,4 +49,5 @@ This project contains following:
     * Scalate cache support
     * Scalate generating support with xsbt-scalate-generator
   * App Engine support with sbt-appengine
+  * Bower
 
