@@ -2,10 +2,9 @@ project/project
 project/target
 target
 
-/src/main/webapp/WEB-INF/lib
-/src/main/webapp/WEB-INF/classes
-/src/main/webapp/WEB-INF/appengine-generated
-/src/main/webapp/vendors
+/src/main/webapp
+/bower_components
+/node_modules
 
 /.idea
 /*.iml
