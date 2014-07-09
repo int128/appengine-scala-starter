@@ -29,9 +29,10 @@ Open `src/main/webapp/WEB-INF/appengine-web.xml` and change the application id.
     <application>myapp</application>
 ```
 
-Then, invoke sbt and start a development server.
+Then, build and start a development server.
 
 ```
+$ gulp
 $ sbt
 
 > appengineDevServer
@@ -49,5 +50,5 @@ This project contains following:
     * Scalate cache support
     * Scalate generating support with xsbt-scalate-generator
   * App Engine support with sbt-appengine
-  * Bower
+  * Assets management with gulp and bower
 
