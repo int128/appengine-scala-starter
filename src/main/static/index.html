@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="helloApp">
+<head>
+  <meta charset="utf-8"/>
+  <title>Hello World</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=PT+Sans"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Hello World</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div ng-view></div>
+  </div>
+
+</body>
+<script src="/lib.js"></script>
+<script src="/app.js"></script>
+</html>

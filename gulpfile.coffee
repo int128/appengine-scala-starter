@@ -19,16 +19,19 @@ targets =
   appengineDevServer: 'target/webapp/'
 
 gulp.task 'bower', ->
-  # bower.commands.install().on 'end', (installed) ->
-  #   gulp.src([
-  #     ])
-  #     .pipe(concat('lib.js'))
-  #     .pipe(gulp.dest(targets.gulp))
-  #     .pipe(gulp.dest(targets.appengineDevServer))
-  #   gulp.src([
-  #     ])
-  #     .pipe(gulp.dest(targets.gulp))
-  #     .pipe(gulp.dest(targets.appengineDevServer))
+  bower.commands.install().on 'end', (installed) ->
+    gulp.src([
+        'bower_components/angular/angular.min.js'
+        'bower_components/angular-route/angular-route.min.js'
+      ])
+      .pipe(concat('lib.js'))
+      .pipe(gulp.dest(targets.gulp))
+      .pipe(gulp.dest(targets.appengineDevServer))
+    gulp.src([
+        'bower_components/bootstrap/dist/**/*'
+      ])
+      .pipe(gulp.dest(targets.gulp))
+      .pipe(gulp.dest(targets.appengineDevServer))
 
 gulp.task 'coffee', ->
   gulp.src(sources.coffee)
