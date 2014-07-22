@@ -1,11 +1,33 @@
-App Engine Blank Project
-========================
+App Engine Hello World
+======================
 
-Template project of App Engine application.
+An App Engine application with Scala, Unfiltered and AngularJS.
 
 
-How to use
-----------
+Architecture
+------------
+
+This project contains following:
+
+* Server side
+  * Scala
+  * [Unfiltered filter](http://unfiltered.databinder.net)
+  * [JSON4S](https://github.com/json4s/json4s)
+  * [Scalate](http://scalate.fusesource.org)
+    * Scalate cache support
+  * sbt
+    * Scalate precompiling support with [xsbt-scalate-generate](https://github.com/backchatio/xsbt-scalate-generate)
+    * App Engine support with [sbt-appengine](https://github.com/sbt/sbt-appengine)
+* Client side
+  * [CoffeeScript](http://coffeescript.org/)
+  * [Less](http://lesscss.org)
+  * [AngularJS](https://angularjs.org)
+  * [Bootstrap](http://getbootstrap.com)
+  * Assets management with [gulp.js](http://gulpjs.com) and [Bower](http://bower.io)
+
+
+How to setup
+------------
 
 Clone the repository.
 
@@ -29,26 +51,44 @@ Open `src/main/webapp/WEB-INF/appengine-web.xml` and change the application id.
     <application>myapp</application>
 ```
 
-Then, build and start a development server.
+
+How to run
+----------
+
+### App Engine development server
+
+Compile client assets and start the server.
 
 ```
 $ gulp
 $ sbt
 
-> appengineDevServer
+> appengineDevServer --port=8888
+```
+
+Invoke gulp watch for hot reloading of client assets.
+
+```
+$ gulp watch
 ```
 
 
-Architecture
-------------
+### Light weight server for client assets
 
-This project contains following:
+```
+$ gulp
+$ gulp server
+```
 
-  * Scala 2.10
-  * Unfiltered filter
-  * Scalate
-    * Scalate cache support
-    * Scalate generating support with xsbt-scalate-generator
-  * App Engine support with sbt-appengine
-  * Assets management with gulp and bower
 
+How to deploy
+-------------
+
+Compile client assets and deploy the application.
+
+```
+$ gulp
+$ sbt
+
+> appengineDeploy --oauth2
+```
