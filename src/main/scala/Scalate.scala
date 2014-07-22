@@ -5,9 +5,10 @@ import javax.servlet.FilterConfig
 import com.google.appengine.api.utils.SystemProperty
 import org.fusesource.scalate.TemplateEngine
 import org.fusesource.scalate.servlet.ServletResourceLoader
+import services.Memcache
 import unfiltered.response._
 
-trait Scalate extends Memcache {
+trait Scalate {
   def config: FilterConfig
 
   private lazy val logger = Logger.getLogger(getClass.getName)
@@ -48,5 +49,5 @@ trait Scalate extends Memcache {
    */
   case class CachedScalate(path: String, params: () => Map[String, Any], extraKey: String = "") extends
     ComposeResponse(HtmlContent ~> ResponseString(
-      getCacheOrValue(calculateCacheKey(path, extraKey), render(path, params()))))
+      Memcache.getOrValue(calculateCacheKey(path, extraKey), render(path, params()))))
 }
