@@ -1,4 +1,8 @@
 # gulpfile.coffee: build script for front assets
+#
+# gulp        - build assets
+# gulp watch  - build assets continuously
+# gulp server - start a server with assets and mocked APIs
 
 sources =
   bower:  'bower.json'
@@ -20,9 +24,9 @@ del         = require 'del'
 gulp        = require 'gulp'
 coffee      = require 'gulp-coffee'
 concat      = require 'gulp-concat'
-connect     = require 'gulp-connect'
 less        = require 'gulp-less'
 ngAnnotate  = require 'gulp-ng-annotate'
+nodemon     = require 'gulp-nodemon'
 uglify      = require 'gulp-uglify'
 
 
@@ -75,8 +79,20 @@ gulp.task 'compile:static', ->
     .pipe gulp.dest 'target/webapp/'
 
 
-gulp.task 'server', ['watch'], ->
-  connect.server
-    root: 'src/main/webapp/'
-    port: 8888
-    livereload: true
+gulp.task 'server', ['compile:apimock'], ->
+  gulp.start 'watch', 'watch:apimock'
+  nodemon
+    watch:  ['target/apimock/', 'target/webapp/']
+    script: 'target/apimock/app.js'
+    env:
+      port: 8888
+      webapp: "#{__dirname}/target/webapp/"
+
+gulp.task 'watch:apimock', ->
+  gulp.watch 'src/apimock/coffeescript/**/*', ['compile:apimock']
+
+gulp.task 'compile:apimock', ->
+  gulp.src 'src/apimock/coffeescript/**/*'
+    .pipe coffee()
+    .pipe concat 'app.js'
+    .pipe gulp.dest 'target/apimock/'
