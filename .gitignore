@@ -1,16 +1,14 @@
-project/project
-project/target
-target
+project/project/
+project/target/
+target/
 
-/src/main/webapp
-/bower_components
-/node_modules
+bower_components/
+node_modules/
 
-/.idea
-/*.iml
-/out
-/.idea_modules
+.idea/
+*.iml
+out/
 
-/.classpath
-/.project
-/.settings
+.classpath
+.project
+.settings/
