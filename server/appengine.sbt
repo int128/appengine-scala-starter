@@ -6,3 +6,5 @@ libraryDependencies ++= Seq(
 )
 
 appengineSettings
+
+webappResources in Compile := Seq(baseDirectory.value / "../client/target/webapp")
