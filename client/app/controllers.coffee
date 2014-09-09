@@ -1,6 +1,9 @@
 controllers = angular.module 'helloControllers', ['helloServices']
 
 controllers.controller 'TopController', ($scope, LikeService) ->
-  $scope.count = LikeService.get()
+  $scope.count = 0
+  LikeService.get (initialValue) ->
+    $scope.count = initialValue
   $scope.like = ->
-    $scope.count = LikeService.increment()
+    LikeService.increment (newValue) ->
+      $scope.count = newValue
