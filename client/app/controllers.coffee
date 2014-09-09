@@ -1,4 +1,6 @@
-controllers = angular.module 'helloControllers', []
+controllers = angular.module 'helloControllers', ['helloServices']
 
-controllers.controller 'TopController', ($scope) ->
-  $scope.content = 'Hello World'
+controllers.controller 'TopController', ($scope, LikeService) ->
+  $scope.count = LikeService.get()
+  $scope.like = ->
+    $scope.count = LikeService.increment()
