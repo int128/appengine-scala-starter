@@ -7,44 +7,78 @@ An App Engine application with Scala, Unfiltered and AngularJS.
 Architecture
 ------------
 
-This project contains following:
-
-* Server side
-  * Scala
-  * [Unfiltered filter](http://unfiltered.databinder.net)
-  * [JSON4S](https://github.com/json4s/json4s)
-  * [Scalate](http://scalate.fusesource.org)
-    * Scalate cache support
-  * sbt
-    * Scalate precompiling support with [xsbt-scalate-generate](https://github.com/backchatio/xsbt-scalate-generate)
-    * App Engine support with [sbt-appengine](https://github.com/sbt/sbt-appengine)
-* Client side
+* Client app
   * [CoffeeScript](http://coffeescript.org/)
   * [Less](http://lesscss.org)
   * [AngularJS](https://angularjs.org)
   * [Bootstrap](http://getbootstrap.com)
   * Assets management with [gulp.js](http://gulpjs.com) and [Bower](http://bower.io)
+  * Server with API mock for testing
+* Server app
+  * Scala
+  * [Unfiltered filter](http://unfiltered.databinder.net)
+  * [JSON4S](https://github.com/json4s/json4s)
+  * [Scalate](http://scalate.fusesource.org)
+    * Memcache support
+  * sbt
+    * Scalate precompiling support with [xsbt-scalate-generate](https://github.com/backchatio/xsbt-scalate-generate)
+    * App Engine support with [sbt-appengine](https://github.com/sbt/sbt-appengine)
 
 
-How to setup
-------------
+Structure
+---------
 
-Clone the repository.
+* `client/`
+  * `app/` - CoffeeScript and Less sources of the product
+  * `public/` - Static files of the product
+  * `target/webapp/` - (output) Compiled assets and static files
+  * `apimock.coffee` - Source of server and API mock for testing
+  * `bower.json` - Dependencies of the product
+  * `package.json` - Dependencies for build and test
+* `server/`
+  * `src/main/scala/` - Scala sources of the product
+  * `src/test/scala/` - Scala sources of the test
+  * `target/webapp/` - (output) Compiled classes and client app
+  * `build.sbt` - Scala dependencies
+
+
+Setup
+-----
+
+### Prerequisite
+
+* Server app
+  * Java 7 or later
+  * sbt
+  * App Engine SDK
+  * JRebel (optional)
+* Client app
+  * Node.js
+  * npm
+
+
+### Client app
+
+Install dependencies.
 
 ```bash
-git clone git@github.com:int128/sbt-appengine-blank.git myapp
-cd myapp
-git remote rename origin template
+cd client/
+npm install
+npm install -g gulp
 ```
 
-Unpack the App Engine SDK and set the environment variable `APPENGINE_SDK_HOME`.
+
+### Server app
+
+Set environment variables: `APPENGINE_SDK_HOME` (mandatory) and `JREBEL_PATH` (optional).
 
 ```bash
-# ~/.bashrc
-export APPENGINE_SDK_HOME="$HOME/App/appengine-java-sdk-x.y.z"
+# .bashrc or .zshrc
+export APPENGINE_SDK_HOME=/usr/local/Cellar/app-engine-java-sdk/x.y.z/libexec
+export JREBEL_PATH=$HOME/Library/jrebel/jrebel.jar
 ```
 
-Open `src/main/webapp/WEB-INF/appengine-web.xml` and change the application id.
+Open `server/src/main/webapp/WEB-INF/appengine-web.xml` and change the application id.
 
 ```xml
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
@@ -52,43 +86,54 @@ Open `src/main/webapp/WEB-INF/appengine-web.xml` and change the application id.
 ```
 
 
-How to run
-----------
+Run
+---
 
-### App Engine development server
+### Full stack app
 
-Compile client assets and start the server.
+Build client assets continuously.
 
+```bash
+cd client/
+gulp watch
 ```
-$ gulp
-$ sbt
+
+Start an App Engine development server.
+
+```bash
+cd server/
+sbt
 
 > appengineDevServer --port=8888
 ```
 
-Invoke gulp watch for hot reloading of client assets.
 
-```
-$ gulp watch
-```
+### Client app with API mock
 
+Start an express server.
 
-### Light weight server for client assets
-
-```
-$ gulp
-$ gulp server
+```bash
+cd client/
+gulp
+gulp server
 ```
 
 
-How to deploy
--------------
+Deploy
+------
 
-Compile client assets and deploy the application.
+Build client assets.
 
+```bash
+cd client/
+gulp
 ```
-$ gulp
-$ sbt
+
+Deploy the application.
+
+```bash
+cd server/
+sbt
 
 > appengineDeploy --oauth2
 ```
