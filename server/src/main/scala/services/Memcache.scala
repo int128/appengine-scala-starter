@@ -26,6 +26,8 @@ object Memcache {
 
   def delete(key: String) = memcacheService.delete(key)
 
+  def increment(key: String): Long = memcacheService.increment(key, 1)
+
   /**
    * Get the cached entry or calculate the value.
    *
