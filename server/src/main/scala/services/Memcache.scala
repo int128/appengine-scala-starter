@@ -37,7 +37,7 @@ object Memcache {
    * @return cached entry or calculated value
    */
   def getOrValue[T](key: String, value: => T): T =
-    get(key) match {
+    get[T](key) match {
       case Some(cached) => cached
       case None => put(key, value)
     }

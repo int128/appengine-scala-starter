@@ -11,7 +11,7 @@ class App extends unfiltered.filter.Plan {
       JsonContent ~>
         JsonResponse(
           // TODO: get from the datastore
-          "count" -> Memcache.getOrValue("like", 0)
+          "count" -> Memcache.getOrValue("like", 0L)
         )
 
     case POST(Path("/like")) =>
