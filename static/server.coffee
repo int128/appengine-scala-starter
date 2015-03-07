@@ -1,6 +1,9 @@
 express = require 'express'
+morgan = require 'morgan'
+
 app = express()
 
+app.use morgan 'short'
 app.use express.static process.env.webapp
 
 app.get '/like', (req, res) ->
