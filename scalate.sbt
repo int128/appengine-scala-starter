@@ -9,6 +9,6 @@ Seq(scalateSettings: _*)
 
 scalateTemplateConfig in Compile <<= (sourceDirectory in Compile) { base =>
   Seq(
-    TemplateConfig(base / "../../../client/target/webapp", Seq(), Seq(), Some(""))
+    TemplateConfig(base / "../../static/target", Seq(), Seq(), Some(""))
   )
 }

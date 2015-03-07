@@ -1,4 +1,4 @@
-# gulpfile.coffee: build script for front assets
+# gulpfile.coffee: build script for static assets
 #
 # gulp        - build assets
 # gulp watch  - build assets continuously
@@ -34,7 +34,7 @@ gulp.task 'default', ['clean'], ->
   gulp.start 'compile:lib', 'compile:coffee', 'compile:less', 'compile:static'
 
 gulp.task 'clean', (cb) ->
-  del 'target/webapp/', cb
+  del 'target', cb
 
 gulp.task 'watch', ->
   gulp.watch sources.bower,  ['compile:lib']
@@ -47,12 +47,12 @@ gulp.task 'compile:lib', ->
   bower.commands.install().on 'end', ->
     gulp.src libs.js.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.js'
-      .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest 'target'
     gulp.src libs.css.map (e) -> "bower_components/#{e}"
       .pipe concat 'lib.css'
-      .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest 'target'
     gulp.src libs.static.map (e) -> "bower_components/#{e}"
-      .pipe gulp.dest 'target/webapp/'
+      .pipe gulp.dest 'target'
 
 gulp.task 'compile:coffee', ->
   gulp.src sources.coffee
@@ -60,32 +60,23 @@ gulp.task 'compile:coffee', ->
     .pipe ngAnnotate()
     .pipe uglify()
     .pipe concat 'app.js'
-    .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest 'target'
 
 gulp.task 'compile:less', ->
   gulp.src sources.less
     .pipe less()
     .pipe concat 'app.css'
-    .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest 'target'
 
 gulp.task 'compile:static', ->
   gulp.src sources.static
-    .pipe gulp.dest 'target/webapp/'
+    .pipe gulp.dest 'target'
 
 
-gulp.task 'server', ['compile:apimock'], ->
-  gulp.start 'watch', 'watch:apimock'
+gulp.task 'server', ->
   nodemon
-    script: 'target/apimock.js'
-    watch: ['target/apimock.js', 'target/webapp/']
+    script: 'server.js'
+    watch: ['server.js', 'target']
     env:
-      port: 8888
-      webapp: "#{__dirname}/target/webapp/"
-
-gulp.task 'watch:apimock', ->
-  gulp.watch 'apimock.coffee', ['compile:apimock']
-
-gulp.task 'compile:apimock', ->
-  gulp.src 'apimock.coffee'
-    .pipe coffee()
-    .pipe gulp.dest 'target/'
+      port: 3000
+      webapp: "#{__dirname}/target"

@@ -32,22 +32,17 @@ How to Use
 
 Node.js is required.
 
-```bash
-brew install node
-npm -v
-```
-
 ### Setting up environment for server development
 
-Java 7 or later is required.
-
-Install App Engine SDK (mandatory) and JRebel (optional).
+Java 7 or later and App Engine SDK is required.
 
 ```bash
-brew install app-engine-sdk-java
+gcloud components update gae-java
 ```
 
-And set environment variables in `.bashrc` or `.zshrc`.
+JRebel is recommended.
+
+Set environment variables in `.bashrc` or `.zshrc`.
 
 ```bash
 export APPENGINE_SDK_HOME=/usr/local/Cellar/app-engine-java-sdk/x.y.z/libexec
@@ -56,10 +51,10 @@ export JREBEL_PATH=$HOME/Library/jrebel/jrebel.jar
 
 ### Run the client app
 
-Build the client app and run the mocked server.
+Build the client app and run the server.
 
 ```bash
-cd client/
+cd static/
 
 npm install
 npm install -g gulp
@@ -73,7 +68,7 @@ gulp server
 Build the client app continuously.
 
 ```bash
-cd client/
+cd static/
 gulp watch
 ```
 
@@ -91,7 +86,7 @@ sbt
 Build the client app.
 
 ```bash
-cd client/
+cd static/
 gulp
 ```
 
@@ -107,11 +102,11 @@ sbt
 Structure
 ---------
 
-* `client/`
+* `static/`
   * `app/` - CoffeeScript and Less sources of the product
   * `public/` - Static files of the product
-  * `target/webapp/` - (output) Compiled assets and static files
-  * `apimock.coffee` - Source of server and API mock for testing
+  * `target/` - (output) Compiled assets and static files
+  * `server.coffee` - Source of server and API mock for testing
   * `bower.json` - Dependencies of the product
   * `package.json` - Dependencies for build and test
 * `server/`
